@@ -14,9 +14,7 @@ body {
     padding: 0 20px;
 }
 
-
 /* Header */
-
 .header {
     display: flex;
     align-items: center;
@@ -65,7 +63,6 @@ body {
 }
 
 /* Hero section */
-
 .hero{
     background-image: linear-gradient(
         rgba(0,0,0,0.7),
@@ -83,26 +80,12 @@ body {
         margin-bottom: 50px;
 }
 
-/* .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    color: #062c4e;
-    padding: 4rem 0;
-    text-align: left;
-    background-color: #f9f0dd;
-} */
-
 .descripcion-principal { 
-    /* max-width: 800px; */
     max-width: 80%;
     margin: 0 auto;
     background-color: transparent;
     padding: 2rem;
     border-radius: 10px;
-    /* background-color: #f9f0dd; */
     color: white; 
 }
 
@@ -253,11 +236,6 @@ button{
         flex-direction: column;
         align-items: center;
     }
-
-    /* .descripcion-principal {
-        padding: 1rem;
-        margin: 1rem;
-    } */
 }
 
 @media (max-width: 768px) {
@@ -297,7 +275,6 @@ button{
         width: 100%;
     }
 
-    /* adaptar cards tamaño de ancho */
     .card {
         width: 250px;
     }
