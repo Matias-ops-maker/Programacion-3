@@ -1,0 +1,18 @@
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 40px;
+}
+
+.completado {
+  text-decoration: line-through;
+  color: gray;
+}
+
+#listaTareas li {
+  cursor: pointer;
+}
+
+/* para el completado con.add, para que deshabilitie el pointer */
+/* #listaTareas li.completado {
+  cursor: default;
+}  */
