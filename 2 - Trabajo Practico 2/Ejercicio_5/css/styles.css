@@ -1,0 +1,22 @@
+h1 {
+    text-align: center;
+}
+
+form {
+    margin: auto;
+}
+
+label, input, button {
+    display: block;
+    margin: 10px;
+}
+
+button {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    margin: 10px;
+}
