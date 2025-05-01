@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <title>TechNova Solutions</title>
+</head>
+
+<body>
+    <header id="header" class="header">
+        <div class="container-header">
+            <div class="titulo">
+                <i class="fa-solid fa-computer fa-2xl"></i>
+                <h1>TechNova Solutions</h1>
+            </div>
+            <nav class="navbar">
+                <a href="../index.html">Inicio</a>
+                <a href="./servicios.html">Servicios</a>
+                <a href="./galeria.html">Galeria</a>
+                <a href="./contacto.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section id="contacto" class="contacto">
+            <h2>Contacto</h2>
+            <form>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required />
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required />
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required />
+                <label for="comentarios">Comentarios:</label>
+                <textarea id="comentarios" name="comentarios" required></textarea>
+                <label for="motivo">Motivo del contacto:</label>
+                <select id="motivo" name="motivo" required>
+                    <option value="">-- Seleccioná una opción --</option>
+                    <option value="consulta">Consulta</option>
+                    <option value="sugerencia">Sugerencia</option>
+                    <option value="reclamo">Reclamo</option>
+                </select>
+                <div>
+                    <label>
+                        <input type="checkbox" name="suscribirse" />
+                        Quiero recibir novedades por correo
+                    </label>
+                </div>
+                <div class="div-botones">
+                    <button type="submit">Enviar</button>
+                    <button type="reset">Resetear</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container-footer">
+            <div class="container-footer-items">
+                <div class="footer-item" id="item-telefono">
+                    <i class="fa-sharp fa-solid fa-phone-volume fa-xl"></i>
+                    <div class="container-items">
+                        <p>+291 445 1426</p>
+                        <p>Lunes a Viernes de 09:00 a 18:00</p>
+                    </div>
+                </div>
+                <div class="footer-item" id="item-correo">
+                    <i class="fa-solid fa-envelope fa-xl"></i>
+                    <div class="container-items">
+                        <p>soporte@technovasolutions.com</p>
+                        <p>Soporte online</p>
+                    </div>
+                </div>
+                <div class="footer-item" id="item-brujula">
+                    <i class="fa-solid fa-compass fa-xl"></i>
+                    <p>Bahia Blanca, Argentina</p>
+                </div>
+            </div>
+            <div class="container-footer-copy">
+                <p>
+                    Copyrights © 2025 Technova Solutions, Realizado y Diseñado por Grupo
+                    Programacion
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="js/asd.js"></script>
+</body>
+
+</html>
