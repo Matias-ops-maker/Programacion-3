@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title><%= title %></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #3498db;
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
+      nav {
+        background-color: #2980b9;
+        padding: 10px;
+        text-align: center;
+      }
+      nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .container {
+        width: 80%;
+        margin: 20px auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      form {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #3498db;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .error {
+        color: red;
+      }
+      .success {
+        color: green;
+      }
+      footer {
+        background-color: #3498db;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Sistema de Clínica</h1>
+    </header>
+
+    <nav>
+      <a href="#" id="verPacientes">Ver Pacientes</a>
+      <a href="#" id="verTurnos">Ver Turnos</a>
+    </nav>
+
+    <div class="container">
+      <div id="mensaje"></div>
+
+      <div id="pacientesSection" style="display: none">
+        <h2>Gestión de Pacientes</h2>
+
+        <form id="pacienteForm">
+          <h3>Nuevo Paciente</h3>
+          <input type="hidden" id="pacienteId" />
+          <label for="dni">DNI:</label>
+          <input type="text" id="dni" required />
+
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" required />
+
+          <label for="apellido">Apellido:</label>
+          <input type="text" id="apellido" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" required />
+
+          <button type="submit">Guardar</button>
+        </form>
+
+        <h3>Lista de Pacientes</h3>
+        <table id="pacientesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>DNI</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="pacientesTableBody"></tbody>
+        </table>
+      </div>
+
+      <div id="turnosSection" style="display: none">
+        <h2>Gestión de Turnos</h2>
+
+        <form id="turnoForm">
+          <h3>Nuevo Turno</h3>
+          <input type="hidden" id="turnoId" />
+
+          <label for="pacienteSelect">Paciente:</label>
+          <select id="pacienteSelect" required></select>
+
+          <label for="fecha">Fecha:</label>
+          <input type="date" id="fecha" required />
+
+          <label for="hora">Hora:</label>
+          <input type="time" id="hora" required />
+
+          <button type="submit">Guardar</button>
+        </form>
+
+        <h3>Filtrar por paciente:</h3>
+        <select id="filtroTurnos">
+          <option value="">Todos los turnos</option>
+        </select>
+        <button id="aplicarFiltro">Filtrar</button>
+
+        <h3>Lista de Turnos</h3>
+        <table id="turnosTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Paciente</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Médico</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="turnosTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer>
+      <p>© <%= new Date().getFullYear() %> Sistema de Gestión de Clínica</p>
+    </footer>
+
+    <script>
+      let pacientes = [];
+      let turnos = [];
+
+      function mostrarMensaje(texto, esError = false) {
+        const mensaje = document.getElementById("mensaje");
+        mensaje.textContent = texto;
+        mensaje.className = esError ? "error" : "success";
+        setTimeout(() => {
+          mensaje.textContent = "";
+          mensaje.className = "";
+        }, 3000);
+      }
+
+      document
+        .getElementById("verPacientes")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById("pacientesSection").style.display = "block";
+          document.getElementById("turnosSection").style.display = "none";
+          cargarPacientes();
+        });
+
+      document
+        .getElementById("verTurnos")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById("pacientesSection").style.display = "none";
+          document.getElementById("turnosSection").style.display = "block";
+          cargarTurnos();
+        });
+
+      async function cargarPacientes() {
+        try {
+          const response = await fetch("/api/v1/pacientes");
+          pacientes = await response.json();
+          actualizarTablaPacientes();
+          actualizarSelectPacientes();
+        } catch (error) {
+          console.error("Error al cargar pacientes:", error);
+          mostrarMensaje("Error al cargar pacientes", true);
+        }
+      }
+
+      function actualizarTablaPacientes() {
+        const tbody = document.getElementById("pacientesTableBody");
+        tbody.innerHTML = "";
+
+        pacientes.forEach((paciente) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+                    <td>${paciente.id}</td>
+                    <td>${paciente.dni}</td>
+                    <td>${paciente.nombre}</td>
+                    <td>${paciente.apellido}</td>
+                    <td>${paciente.email}</td>
+                    <td>
+                        <button onclick="editarPaciente(${paciente.id})">Editar</button>
+                        <button onclick="eliminarPaciente(${paciente.id})">Eliminar</button>
+                    </td>
+                `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function actualizarSelectPacientes() {
+        const select = document.getElementById("pacienteSelect");
+        const filtro = document.getElementById("filtroTurnos");
+
+        select.innerHTML = '<option value="">Seleccione un paciente</option>';
+        filtro.innerHTML = '<option value="">Todos los pacientes</option>';
+
+        pacientes.forEach((paciente) => {
+          const option = document.createElement("option");
+          option.value = paciente.id;
+          option.textContent = `${paciente.nombre} ${paciente.apellido} - DNI: ${paciente.dni}`;
+          select.appendChild(option);
+
+          const optionFiltro = option.cloneNode(true);
+          filtro.appendChild(optionFiltro);
+        });
+      }
+
+      document
+        .getElementById("pacienteForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const pacienteId = document.getElementById("pacienteId").value;
+          const paciente = {
+            dni: document.getElementById("dni").value,
+            nombre: document.getElementById("nombre").value,
+            apellido: document.getElementById("apellido").value,
+            email: document.getElementById("email").value,
+          };
+
+          try {
+            let response;
+            if (pacienteId) {
+              response = await fetch(`/api/v1/pacientes/${pacienteId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(paciente),
+              });
+              mostrarMensaje("Paciente actualizado correctamente");
+            } else {
+              response = await fetch("/api/v1/pacientes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(paciente),
+              });
+              mostrarMensaje("Paciente creado correctamente");
+            }
+
+            limpiarFormularioPaciente();
+            cargarPacientes();
+          } catch (error) {
+            console.error("Error:", error);
+            mostrarMensaje("Error al guardar el paciente", true);
+          }
+        });
+
+      function editarPaciente(id) {
+        const paciente = pacientes.find((p) => p.id == id);
+        if (paciente) {
+          document.getElementById("pacienteId").value = paciente.id;
+          document.getElementById("dni").value = paciente.dni;
+          document.getElementById("nombre").value = paciente.nombre;
+          document.getElementById("apellido").value = paciente.apellido;
+          document.getElementById("email").value = paciente.email;
+        }
+      }
+
+      async function eliminarPaciente(id) {
+        if (confirm("¿Estás seguro de que deseas eliminar este paciente?")) {
+          try {
+            await fetch(`/api/v1/pacientes/${id}`, {
+              method: "DELETE",
+            });
+            mostrarMensaje("Paciente eliminado correctamente");
+            cargarPacientes();
+          } catch (error) {
+            console.error("Error:", error);
+            mostrarMensaje("Error al eliminar el paciente", true);
+          }
+        }
+      }
+
+      function limpiarFormularioPaciente() {
+        document.getElementById("pacienteId").value = "";
+        document.getElementById("pacienteForm").reset();
+      }
+
+      async function cargarTurnos(idPaciente = null) {
+        try {
+          let url = "/api/v1/turnos";
+          if (idPaciente) {
+            url = `/api/v1/turnos/${idPaciente}`;
+          }
+
+          const response = await fetch(url);
+          turnos = await response.json();
+          actualizarTablaTurnos();
+        } catch (error) {
+          console.error("Error al cargar turnos:", error);
+          mostrarMensaje("Error al cargar turnos", true);
+        }
+      }
+
+      function actualizarTablaTurnos() {
+        const tbody = document.getElementById("turnosTableBody");
+        tbody.innerHTML = "";
+
+        turnos.forEach((turno) => {
+          const paciente = pacientes.find((p) => p.id == turno.idPaciente) || {
+            nombre: "Desconocido",
+            apellido: "",
+          };
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+                    <td>${turno.id}</td>
+                    <td>${paciente.nombre} ${paciente.apellido}</td>
+                    <td>${turno.fecha}</td>
+                    <td>${turno.hora}</td>
+                    <td>${turno.medico || "Sin asignar"}</td>
+                    <td>
+                        <button onclick="editarTurno(${turno.id})">Editar</button>
+                        <button onclick="eliminarTurno(${turno.id})">Eliminar</button>
+                    </td>
+                `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      document
+        .getElementById("turnoForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const turnoId = document.getElementById("turnoId").value;
+          const turno = {
+            idPaciente: document.getElementById("pacienteSelect").value,
+            fecha: document.getElementById("fecha").value,
+            hora: document.getElementById("hora").value,
+          };
+
+          try {
+            let response;
+            if (turnoId) {
+              response = await fetch(`/api/v1/turnos/${turnoId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(turno),
+              });
+              mostrarMensaje("Turno actualizado correctamente");
+            } else {
+              response = await fetch("/api/v1/turnos", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(turno),
+              });
+              mostrarMensaje("Turno creado correctamente");
+            }
+
+            limpiarFormularioTurno();
+            cargarTurnos();
+          } catch (error) {
+            console.error("Error:", error);
+            mostrarMensaje("Error al guardar el turno", true);
+          }
+        });
+
+      function editarTurno(id) {
+        const turno = turnos.find((t) => t.id == id);
+        if (turno) {
+          document.getElementById("turnoId").value = turno.id;
+          document.getElementById("pacienteSelect").value = turno.idPaciente;
+          document.getElementById("fecha").value = turno.fecha;
+          document.getElementById("hora").value = turno.hora;
+        }
+      }
+
+      async function eliminarTurno(id) {
+        if (confirm("¿Estás seguro de que deseas eliminar este turno?")) {
+          try {
+            await fetch(`/api/v1/turnos/${id}`, {
+              method: "DELETE",
+            });
+            mostrarMensaje("Turno eliminado correctamente");
+            cargarTurnos();
+          } catch (error) {
+            console.error("Error:", error);
+            mostrarMensaje("Error al eliminar el turno", true);
+          }
+        }
+      }
+
+      function limpiarFormularioTurno() {
+        document.getElementById("turnoId").value = "";
+        document.getElementById("turnoForm").reset();
+      }
+
+      document
+        .getElementById("aplicarFiltro")
+        .addEventListener("click", function () {
+          const idPaciente = document.getElementById("filtroTurnos").value;
+          cargarTurnos(idPaciente);
+        });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("verPacientes").click();
+      });
+    </script>
+  </body>
+</html>
