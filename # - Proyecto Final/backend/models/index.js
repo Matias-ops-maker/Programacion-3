@@ -1,5 +1,5 @@
 // backend/models/index.js
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const config = require('../config/database');
 
 const env = process.env.NODE_ENV || 'development';
@@ -18,8 +18,19 @@ const sequelize = new Sequelize(
     dialectOptions: dbConfig.dialectOptions
   }
 );
+const Producto = require('./producto')(sequelize, DataTypes);
+const Categoria = require('./Categoria')(sequelize, DataTypes);
+const Movimiento = require('./movimiento')(sequelize, DataTypes);
+
+if (Producto.associate) Producto.associate({ Categoria, Movimiento });
+if (Categoria.associate) Categoria.associate({ Producto });
+if (Movimiento.associate) Movimiento.associate({ Producto });
+
 
 module.exports = {
   sequelize,
-  Sequelize
+  Sequelize,
+  Producto,
+  Categoria,
+  Movimiento
 };
