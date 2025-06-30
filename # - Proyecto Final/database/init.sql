@@ -16,12 +16,4 @@ CREATE TABLE IF NOT EXISTS productos (
     stock INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE IF NOT EXISTS movimientos (
-    id SERIAL PRIMARY KEY,
-    producto_id INTEGER REFERENCES productos(id) ON DELETE SET NULL,
-    cantidad INTEGER NOT NULL,
-    tipo VARCHAR(10) NOT NULL CHECK (tipo IN ('entrada', 'salida')),
-    fecha TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
-);
-
 SELECT 'Base de datos inicializada correctamente' AS status;
