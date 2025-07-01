@@ -1,12 +1,18 @@
 
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/productoController');
+const productoController = require('../controllers/productoController');
 
-router.get('/', controller.getAll);
-router.get('/:id', controller.getById);
-router.post('/', controller.create);
-router.put('/:id', controller.update);
-router.delete('/:id', controller.remove);
+// Endpoints de fran y nico para mostrar en el frontend
+router.get('/ultimos', productoController.getUltimos);
+router.get('/mas-vendidos', productoController.getMasVendidos);
+router.get('/sin-stock', productoController.getSinStock);
+
+router.get('/', productoController.getAll);
+router.post('/', productoController.create);
+router.get('/:id', productoController.getById);
+router.put('/:id', productoController.update);
+router.delete('/:id', productoController.remove);
+
 
 module.exports = router;

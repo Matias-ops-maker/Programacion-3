@@ -22,6 +22,21 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0
+        },
+        precio: {
+            type: DataTypes.DECIMAL(10, 2),
+            allowNull: false,
+            defaultValue: 0.00
+        },
+        estado: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'activo'
+        },
+        fecha_de_ingreso: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
         }
     }, {
         tableName: 'productos',
@@ -32,11 +47,6 @@ module.exports = (sequelize, DataTypes) => {
         Producto.belongsTo(models.Categoria, {
             foreignKey: 'categoria_id',
             as: 'categoria'
-        });
-
-        Producto.hasMany(models.Movimiento, {
-            foreignKey: 'producto_id',
-            as: 'movimientos'
         });
     };
 

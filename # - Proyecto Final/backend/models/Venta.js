@@ -1,6 +1,5 @@
-
 module.exports = (sequelize, DataTypes) => {
-    const Movimiento = sequelize.define('Movimiento', {
+    const Venta = sequelize.define('Venta', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -8,18 +7,28 @@ module.exports = (sequelize, DataTypes) => {
         },
         producto_id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
             references: {
                 model: 'productos',
                 key: 'id'
             }
         },
-        cantidad: {
+        categoria_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'categorias',
+                key: 'id'
+            }
+        },
+        cantidad_vendida_producto: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        tipo: {
-            type: DataTypes.ENUM('entrada', 'salida'),
+        producto_precio: {
+            type: DataTypes.DECIMAL(10, 2),
+            allowNull: false
+        },
+        cantidad_vendida_precio: {
+            type: DataTypes.DECIMAL(12, 2),
             allowNull: false
         },
         fecha: {
@@ -28,16 +37,20 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.NOW
         }
     }, {
-        tableName: 'movimientos',
+        tableName: 'ventas',
         timestamps: false
     });
 
-    Movimiento.associate = (models) => {
-        Movimiento.belongsTo(models.Producto, {
+    Venta.associate = (models) => {
+        Venta.belongsTo(models.Producto, {
             foreignKey: 'producto_id',
             as: 'producto'
         });
+        Venta.belongsTo(models.Categoria, {
+            foreignKey: 'categoria_id',
+            as: 'categoria'
+        });
     };
 
-    return Movimiento;
+    return Venta;
 };

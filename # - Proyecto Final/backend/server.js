@@ -7,8 +7,9 @@ require('dotenv').config();
 const { sequelize } = require('./models');
 const routes = require('./routes');
 const productosRoutes = require('./routes/productos');
-const movimientosRoutes = require('./routes/movimientos');
 const categoriasRoutes = require('./routes/categorias');
+const ventasRoutes = require('./routes/ventas');
+const usersRoutes = require('./routes/users');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -34,8 +35,9 @@ if (process.env.NODE_ENV !== 'test') {
 // Rutas
 app.use('/api', routes);
 app.use('/api/productos', productosRoutes);
-app.use('/api/movimientos', movimientosRoutes);
 app.use('/api/categorias', categoriasRoutes);
+app.use('/api/ventas', ventasRoutes);
+app.use('/api/users', usersRoutes);
 
 // Health check en la raíz
 app.get('/health', (req, res) => {

@@ -20,11 +20,13 @@ const sequelize = new Sequelize(
 );
 const Producto = require('./producto')(sequelize, DataTypes);
 const Categoria = require('./Categoria')(sequelize, DataTypes);
-const Movimiento = require('./movimiento')(sequelize, DataTypes);
+const User = require('./User')(sequelize, DataTypes);
+const Venta = require('./Venta')(sequelize, DataTypes);
 
-if (Producto.associate) Producto.associate({ Categoria, Movimiento });
+if (Producto.associate) Producto.associate({ Categoria });
 if (Categoria.associate) Categoria.associate({ Producto });
-if (Movimiento.associate) Movimiento.associate({ Producto });
+if (Venta.associate) Venta.associate({ Producto, Categoria });
+if (User.associate) User.associate({});
 
 
 module.exports = {
@@ -32,5 +34,6 @@ module.exports = {
   Sequelize,
   Producto,
   Categoria,
-  Movimiento
+  Venta, 
+  User
 };
