@@ -103,28 +103,19 @@ const Ventas = () => {
 
   // Manejar eliminación de venta
   const handleEliminarVenta = async (id) => {
-    console.log("🗑️ Intentando eliminar venta con ID:", id);
-
-    if (window.confirm("¿Estás seguro de que quieres eliminar esta venta?")) {
-      console.log("🗑️ Usuario confirmó eliminación");
-      try {
-        await eliminarVenta(id);
-        console.log("🗑️ Venta eliminada exitosamente");
-        setNotificacion({
-          mostrar: true,
-          mensaje: "Venta eliminada exitosamente",
-          tipo: "exito",
-        });
-      } catch (error) {
-        console.error("❌ Error al eliminar venta:", error);
-        setNotificacion({
-          mostrar: true,
-          mensaje: error.message || "Error al eliminar la venta",
-          tipo: "error",
-        });
-      }
-    } else {
-      console.log("🗑️ Usuario canceló la eliminación");
+    try {
+      await eliminarVenta(id);
+      setNotificacion({
+        mostrar: true,
+        mensaje: "Venta eliminada exitosamente",
+        tipo: "exito",
+      });
+    } catch (error) {
+      setNotificacion({
+        mostrar: true,
+        mensaje: error.message || "Error al eliminar la venta",
+        tipo: "error",
+      });
     }
   };
 

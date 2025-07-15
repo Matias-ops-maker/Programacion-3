@@ -1,4 +1,3 @@
-
 const { Producto, Categoria, Venta, sequelize } = require('../models');
 
 // Lo pide el front de fran y nico
@@ -70,28 +69,33 @@ exports.getUltimos = async (req, res) => {
 };
 
 // Los 5 productos mas vendidos
-exports.getMasVendidos = async (req, res) => {
-    const productos = await Venta.findAll({
-        attributes: [
-            'producto_id',
-            [sequelize.fn('SUM', sequelize.col('cantidad_vendida_producto')), 'total_vendido']
-        ],
-        group: ['producto_id', 'producto.id', 'producto.categoria_id', 'producto.nombre', 'producto.stock', 'producto.precio', 'producto.estado', 'producto.fecha_de_ingreso'],
-        order: [[sequelize.literal('total_vendido'), 'DESC']],
-        limit: 5,
-        include: [{ model: Producto, as: 'producto', include: 'categoria' }]
-    });
-    const productosFront = productos.map(v => ({
-        id: v.producto.id,
-        nombre: v.producto.nombre,
-        categoria: v.producto.categoria ? v.producto.categoria.nombre : null,
-        cantidad: v.producto.stock,
-        precio: v.producto.precio,
-        estado: v.producto.estado,
-        fecha_de_ingreso: v.producto.fecha_de_ingreso,
-        total_vendido: v.dataValues.total_vendido
-    }));
-    res.json({ productos: productosFront });
+exports.getProductosMasVendidos = async (req, res) => {
+    try {
+        const productos = await Venta.findAll({
+            attributes: [
+                'producto_id',
+                [sequelize.fn('SUM', sequelize.col('cantidad_vendida_producto')), 'total_vendido']
+            ],
+            group: ['producto_id', 'producto.id', 'producto.categoria_id', 'producto.nombre', 'producto.stock', 'producto.precio', 'producto.estado', 'producto.fecha_de_ingreso'],
+            order: [[sequelize.literal('total_vendido'), 'DESC']],
+            limit: 5,
+            include: [{ model: Producto, as: 'producto', include: 'categoria' }]
+        });
+        const productosFront = productos.map(v => ({
+            id: v.producto.id,
+            nombre: v.producto.nombre,
+            categoria: v.producto.categoria ? v.producto.categoria.nombre : null,
+            cantidad: v.producto.stock,
+            precio: v.producto.precio,
+            estado: v.producto.estado,
+            fecha_de_ingreso: v.producto.fecha_de_ingreso,
+            total_vendido: v.dataValues.total_vendido
+        }));
+        res.json({ productos: productosFront });
+    } catch (error) {
+        console.error("Error al obtener productos más vendidos:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
 };
 
 // Ultimos 5 productos por stock

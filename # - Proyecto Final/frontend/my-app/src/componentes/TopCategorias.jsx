@@ -62,64 +62,15 @@ const TopCategorias = () => {
 
   return (
     <div className="top-categorias">
-      <div className="top-categorias-header">
-        <h3>🏆 Top 5 Categorías Más Vendidas</h3>
-        <button
-          onClick={cargarCategoriasVendidas}
-          className="btn-refresh"
-          title="Actualizar"
-        >
-          🔄
-        </button>
-      </div>
-
-      <div className="categorias-ranking">
-        {categoriasVendidas.map((categoria, index) => {
-          const porcentaje =
-            maxVentas > 0
-              ? (categoria.cantidad_categoria_vendida / maxVentas) * 100
-              : 0;
-          const medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
-
-          return (
-            <div key={categoria.id} className="categoria-rank-item">
-              <div className="rank-info">
-                <span className="rank-medal">{medals[index]}</span>
-                <div className="rank-details">
-                  <h4 className="categoria-nombre">{categoria.nombre}</h4>
-                  <p className="categoria-descripcion">
-                    {categoria.descripcion || "Sin descripción"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="rank-stats">
-                <div className="stat-item">
-                  <span className="stat-label">Vendidas</span>
-                  <span className="stat-value">
-                    {categoria.cantidad_categoria_vendida || 0}
-                  </span>
-                </div>
-                {categoria.total_vendido && (
-                  <div className="stat-item">
-                    <span className="stat-label">Total</span>
-                    <span className="stat-value">
-                      ${categoria.total_vendido.toLocaleString()}
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${porcentaje}%` }}
-                ></div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <h3>🏆 Top 5 Categorías Más Vendidas</h3>
+      <ul>
+        {categoriasVendidas.map((categoria, index) => (
+          <li key={categoria.id}>
+            {index + 1}. {categoria.nombre} -{" "}
+            {categoria.cantidad_categoria_vendida} ventas
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

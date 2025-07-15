@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../componentes/styles/Inventario.css";
 import MenuInteractivo from "../componentes/MenuInteractivo";
-import DashboardInventario from "../componentes/DashboardInventario";
 import FormularioProducto from "../componentes/FormularioProducto";
 import Notificacion from "../componentes/Notificacion";
 import useProductos from "../hooks/useProductos";
@@ -197,12 +196,32 @@ const Inventario = () => {
     }
   }, [error, setError]);
 
+  const DashboardInventario = () => (
+    <div className="dashboard">
+      <h2>Dashboard de Inventario</h2>
+      <div className="estadisticas">
+        <div>
+          <h3>Productos Más Vendidos</h3>
+          {productosMasVendidos.map((producto) => (
+            <p key={producto.id}>
+              {producto.nombre} - {producto.cantidad_vendida}
+            </p>
+          ))}
+        </div>
+        <div>
+          <h3>Productos Sin Stock</h3>
+          {productosSinStock.map((producto) => (
+            <p key={producto.id}>{producto.nombre}</p>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <MenuInteractivo colapsado={colapsado} setColapsado={setColapsado} />
-      <div
-        className={`main-content ${colapsado ? "colapsado" : "no-colapsado"}`}
-      >
+      <div className={`main-content ${colapsado ? "colapsado" : "no-colapsado"}`}>
         <div className="inventario-header">
           <h1 className="ventas-titulo">Inventario de Productos</h1>
           <button
@@ -219,15 +238,7 @@ const Inventario = () => {
         </div>
 
         {/* Dashboard */}
-        {mostrarDashboard && (
-          <DashboardInventario
-            ultimosProductos={ultimosProductos}
-            productosMasVendidos={productosMasVendidos}
-            productosSinStock={productosSinStock}
-            totalProductos={productos.length}
-            loading={loading}
-          />
-        )}
+        {mostrarDashboard && <DashboardInventario />}
 
         {/* Controles y filtros */}
         <div className="acciones-superiores">
@@ -389,7 +400,7 @@ const Inventario = () => {
                         key={i}
                         onClick={() => cambiarPagina(i + 1)}
                         className={`boton-paginacion ${
-                          paginaActual === i + 1 ? "pagina-activa" : ""
+                          paginaActual === i + 1 ? "active" : ""
                         }`}
                       >
                         {i + 1}
@@ -405,36 +416,30 @@ const Inventario = () => {
                     </button>
                   </div>
                 )}
-
-                {/* Info de paginación */}
-                <div className="info-paginacion">
-                  Mostrando {indexPrimerElemento + 1} -{" "}
-                  {Math.min(indexUltimoElemento, productosFiltrados.length)} de{" "}
-                  {productosFiltrados.length} productos
-                </div>
               </>
             )}
           </>
         )}
+
+        {/* Modal de formulario */}
+        {modalFormulario && (
+          <FormularioProducto
+            producto={productoEditando}
+            onClose={cerrarModal}
+            onSubmit={manejarEnvioFormulario}
+            loading={loadingAccion}
+          />
+        )}
+
+        {/* Notificación */}
+        {notificacion.visible && (
+          <Notificacion
+            tipo={notificacion.tipo}
+            mensaje={notificacion.mensaje}
+            onCerrar={cerrarNotificacion}
+          />
+        )}
       </div>
-
-      {/* Modal del formulario */}
-      <FormularioProducto
-        isOpen={modalFormulario}
-        onClose={cerrarModal}
-        onSubmit={manejarEnvioFormulario}
-        producto={productoEditando}
-        categorias={categorias}
-        loading={loadingAccion}
-      />
-
-      {/* Notificaciones */}
-      <Notificacion
-        tipo={notificacion.tipo}
-        mensaje={notificacion.mensaje}
-        visible={notificacion.visible}
-        onClose={cerrarNotificacion}
-      />
     </>
   );
 };

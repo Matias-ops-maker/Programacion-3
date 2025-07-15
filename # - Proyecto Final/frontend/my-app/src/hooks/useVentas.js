@@ -24,66 +24,36 @@ export const useVentas = () => {
 
   // Crear nueva venta
   const crearVenta = async (ventaData) => {
-    setLoading(true);
-    setError(null);
     try {
       const nuevaVenta = await ventaService.crearVenta(ventaData);
-      await cargarVentas(); // Recargar ventas después de crear
+      await cargarVentas();
       return nuevaVenta;
     } catch (err) {
       setError(err.message);
-      console.error("Error al crear venta:", err);
       throw err;
-    } finally {
-      setLoading(false);
     }
   };
 
   // Actualizar venta existente
   const actualizarVenta = async (id, ventaData) => {
-    console.log(
-      "🔄 [useVentas] Iniciando actualización de venta:",
-      id,
-      ventaData
-    );
-    setLoading(true);
-    setError(null);
     try {
-      const ventaActualizada = await ventaService.actualizarVenta(
-        id,
-        ventaData
-      );
-      console.log(
-        "🔄 [useVentas] Venta actualizada exitosamente:",
-        ventaActualizada
-      );
-      await cargarVentas(); // Recargar ventas después de actualizar
+      const ventaActualizada = await ventaService.actualizarVenta(id, ventaData);
+      await cargarVentas();
       return ventaActualizada;
     } catch (err) {
-      console.error("❌ [useVentas] Error al actualizar venta:", err);
       setError(err.message);
       throw err;
-    } finally {
-      setLoading(false);
     }
   };
 
   // Eliminar venta
   const eliminarVenta = async (id) => {
-    console.log("🗑️ [useVentas] Iniciando eliminación de venta:", id);
-    setLoading(true);
-    setError(null);
     try {
-      const resultado = await ventaService.eliminarVenta(id);
-      console.log("🗑️ [useVentas] Venta eliminada exitosamente:", resultado);
-      await cargarVentas(); // Recargar ventas después de eliminar
-      return resultado;
+      await ventaService.eliminarVenta(id);
+      await cargarVentas();
     } catch (err) {
-      console.error("❌ [useVentas] Error al eliminar venta:", err);
       setError(err.message);
       throw err;
-    } finally {
-      setLoading(false);
     }
   };
 
