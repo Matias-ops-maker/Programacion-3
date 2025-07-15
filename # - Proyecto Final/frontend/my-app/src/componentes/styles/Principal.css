@@ -1,0 +1,208 @@
+.principal-contenedor {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+}
+h2 {
+  border-bottom: none !important;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.colapsado {
+  margin-left: 80px;
+}
+
+.main-content.no-colapsado {
+  margin-left: 250px;
+}
+
+.tarjeta.bienvenida {
+  background: #ffffff;
+  padding: 30px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.principal_titulo {
+  display: block;
+  font-size: 40px;
+  font-weight: 700;
+  color: #2c3e50;
+  letter-spacing: -0.5px;
+  margin: 0px;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.parrafo {
+  font-size: 18px;
+  color: #4a4a4a;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.subtitulo {
+  margin: 0px;
+  padding-bottom: 6px;
+  font-weight: 600;
+  font-size: 20px;
+  color: #2c3e50;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  text-align: left;
+  cursor: pointer;
+}
+
+.subtitulo:hover {
+  border-bottom-color: #3498db;
+  color: #217dbb;
+}
+
+/* Estilos adicionales para elementos clickeables */
+.clickeable {
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.clickeable:active {
+  transform: translateY(1px);
+}
+
+.titulo-tarjeta {
+  font-size: 26px;
+  font-weight: 600;
+  color: #2c3e50;
+  flex-grow: 1;
+}
+
+.restantes-secciones {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tarjeta.ultimos-sin-stock {
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grid-dos-columnas-1-3 {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
+}
+
+.grid-dos-columnas-1-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.orden-desktop-primero {
+  order: -1;
+}
+
+.orden-desktop-segundo {
+  order: 1;
+}
+
+.orden-mobile-primero {
+  order: -1;
+}
+
+.orden-mobile-segundo {
+  order: 1;
+}
+.tabla_scroll {
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: inherit;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.tabla th {
+  background-color: #2c3e50;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.tabla td {
+  padding: 12px;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.tabla tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.tabla tr:hover {
+  background-color: #f1f3f5;
+}
+.tarjeta {
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
+  box-sizing: border-box;
+}
+
+.tarjeta-header {
+  background-color: #2c3e50;
+  color: rgb(255, 255, 255);
+  padding: 14px 20px;
+  font-weight: 700;
+  border-radius: 12px;
+  font-size: 18px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.tarjeta-header:hover {
+  background-color: #34495e;
+  color: #ecf0f1;
+}
+
+.tarjeta-content {
+  padding: 16px;
+}
+@media (max-width: 900px) {
+  .grid-dos-columnas-1-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-dos-columnas-1-1 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1;
+  }
+}

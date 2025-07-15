@@ -1,0 +1,204 @@
+/* Estilos específicos para FormularioVenta */
+.formulario-venta {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.formulario-venta-titulo {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
+}
+
+.formulario-venta .formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.formulario-venta .campo-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.formulario-venta .campo-label {
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.formulario-venta .campo-input,
+.formulario-venta .campo-select {
+  padding: 10px 14px;
+  border: 2px solid #ecf0f1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  color: #2c3e50;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.formulario-venta .campo-input:focus,
+.formulario-venta .campo-select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.formulario-venta .campo-input.error,
+.formulario-venta .campo-select.error {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.formulario-venta .campo-input:disabled,
+.formulario-venta .campo-select:disabled {
+  background-color: #f8f9fa;
+  color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.formulario-venta .campos-fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.formulario-venta .campos-fila .campo-grupo {
+  min-width: 0;
+}
+
+.formulario-venta .campos-fila .campo-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .formulario-venta .campos-fila {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formulario-venta .error-mensaje {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-top: 0.2rem;
+}
+
+.formulario-venta .formulario-acciones {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ecf0f1;
+}
+
+.formulario-venta .boton-cancelar,
+.formulario-venta .boton-guardar {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.formulario-venta .boton-cancelar {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.formulario-venta .boton-cancelar:hover:not(:disabled) {
+  background-color: #7f8c8d;
+  transform: translateY(-1px);
+}
+
+.formulario-venta .boton-guardar {
+  background-color: #27ae60;
+  color: white;
+}
+
+.formulario-venta .boton-guardar:hover:not(:disabled) {
+  background-color: #229954;
+  transform: translateY(-1px);
+}
+
+.formulario-venta .boton-cancelar:disabled,
+.formulario-venta .boton-guardar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Información del producto */
+.formulario-venta .producto-info {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.formulario-venta .producto-info h4 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.formulario-venta .producto-info p {
+  margin: 0.2rem 0;
+  color: #555;
+  font-size: 0.85rem;
+}
+
+/* Total de venta */
+.formulario-venta .total-venta {
+  background-color: #e8f5e8;
+  border: 2px solid #27ae60;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.formulario-venta .total-venta h3 {
+  margin: 0;
+  color: #27ae60;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .formulario-venta .formulario-acciones {
+    flex-direction: column;
+  }
+
+  .formulario-venta .boton-cancelar,
+  .formulario-venta .boton-guardar {
+    width: 100%;
+  }
+
+  .formulario-venta-titulo {
+    font-size: 1.3rem;
+  }
+}

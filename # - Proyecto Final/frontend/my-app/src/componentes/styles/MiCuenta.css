@@ -1,0 +1,280 @@
+.contenedor-collapsible {
+  max-height: 2000px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.contenedor-collapsible.cerrado {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.mi-cuenta-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.mi-cuenta-main.colapsado {
+  margin-left: 70px;
+}
+
+.mi-cuenta-main.no-colapsado {
+  margin-left: 220px;
+}
+
+.micuenta-container {
+  max-width: 500px;
+  width: 100%;
+  margin: 0; /* Remover el margin auto ya que el flex parent se encarga del centrado */
+  padding: 25px 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.micuenta-container h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 10px;
+}
+
+.form-micuenta {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.campo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-form label {
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: #34495e;
+}
+
+.campo-form input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.8px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.campo-form input:focus {
+  border-color: #2c3e50;
+}
+
+.btn-guardar {
+  margin-top: 10px;
+  background-color: #2c3e50;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+  user-select: none;
+}
+
+.btn-guardar:hover {
+  background-color: rgb(32, 93, 133);
+}
+
+.mensaje {
+  margin-top: 18px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  color: green;
+  text-align: center;
+}
+
+.header-micuenta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.btn-toggle {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.btn-toggle:hover {
+  background-color: rgb(32, 93, 133);
+}
+.campo-form input {
+  width: 400px;
+  padding: 12px 16px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fefefe;
+  box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.05);
+}
+.campo-form input:focus {
+  border-color: #4e79a7;
+  box-shadow: 0 0 6px #4e79a7;
+  background-color: #fff;
+}
+.input-text {
+  border-color: #6c757d;
+}
+
+.input-text:focus {
+  border-color: #3b5998;
+  box-shadow: 0 0 6px #3b5998;
+}
+
+.input-email {
+  border-color: #28a745;
+}
+
+.input-email:focus {
+  border-color: #1e7e34;
+  box-shadow: 0 0 6px #1e7e34;
+}
+
+.input-password,
+.input-passwordConfirm {
+  border-color: #dc3545;
+}
+
+.input-password:focus,
+.input-passwordConfirm:focus {
+  border-color: #a71d2a;
+  box-shadow: 0 0 6px #a71d2a;
+}
+/* @media (max-width: 768px) {
+  .mi-cuenta-main.colapsado,
+  .mi-cuenta-main.no-colapsado {
+    margin-left: 0;
+    padding: 10px;
+  }
+} */
+
+@media (max-width: 630px) {
+  .mi-cuenta-main {
+    margin-left: 70px !important; /* Siempre con margen del sidebar colapsado en móvil */
+    transition: margin-left 0.3s ease;
+  }
+
+  .mi-cuenta-main.colapsado,
+  .mi-cuenta-main.no-colapsado {
+    margin-left: 70px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .micuenta-container {
+    padding: 20px;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .mi-cuenta-main {
+    min-height: calc(100vh - 40px);
+    padding: 20px 10px;
+  }
+}
+
+/* Estilos para la página simplificada de Mi Cuenta */
+.datos-usuario {
+  margin: 2rem 0;
+}
+
+.campo-info {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #2c3e50;
+}
+
+.campo-info label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.valor-campo {
+  font-size: 1.1rem;
+  color: #34495e;
+  margin: 0;
+  padding: 0.5rem 0;
+  font-weight: 500;
+}
+
+.acciones-cuenta {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ecf0f1;
+}
+
+.btn-logout {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+}
+
+.btn-logout:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.btn-logout:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+}
+
+.mi-cuenta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  font-size: 1.1rem;
+  color: #7f8c8d;
+}

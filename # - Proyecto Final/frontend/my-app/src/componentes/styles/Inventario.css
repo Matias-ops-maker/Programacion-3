@@ -1,0 +1,205 @@
+.inventario_tabla {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.95rem;
+}
+
+.inventario_tabla thead th {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 12px;
+  border-bottom: 2px solid #34495e;
+  text-align: left;
+}
+
+.inventario_tabla tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #ecf0f1;
+  color: #2c3e50;
+  word-break: break-word;
+}
+
+.estado-ok {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.estado-bajo {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.inventario_tabla th:nth-child(1),
+.inventario_tabla td:nth-child(1) {
+  width: 5%;
+}
+
+.inventario_tabla th:nth-child(2),
+.inventario_tabla td:nth-child(2) {
+  width: 25%;
+}
+
+.inventario_tabla th:nth-child(3),
+.inventario_tabla td:nth-child(3) {
+  width: 15%;
+}
+
+.inventario_tabla th:nth-child(4),
+.inventario_tabla td:nth-child(4) {
+  width: 10%;
+}
+
+.inventario_tabla th:nth-child(5),
+.inventario_tabla td:nth-child(5) {
+  width: 10%;
+}
+
+.inventario_tabla th:nth-child(6),
+.inventario_tabla td:nth-child(6) {
+  width: 15%;
+}
+
+.inventario_tabla th:nth-child(7),
+.inventario_tabla td:nth-child(7) {
+  width: 20%;
+}
+
+/* Estilos básicos para la interfaz del inventario */
+
+.acciones-superiores {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.acciones-grupo-input-filtro {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.input-buscador,
+.select-filtro {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.input-buscador {
+  min-width: 200px;
+}
+
+.select-filtro {
+  min-width: 150px;
+}
+
+.boton-agregar {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.boton-agregar:hover {
+  background-color: #229954;
+}
+
+.tabla-ventas {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.tabla-ventas thead th {
+  background-color: #2c3e50;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.tabla-ventas tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #ecf0f1;
+  color: #2c3e50;
+}
+
+.tabla-ventas tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.botones-fila {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.boton-editar,
+.boton-eliminar {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boton-editar {
+  background-color: #3498db;
+  color: white;
+}
+
+.boton-editar:hover {
+  background-color: #2980b9;
+}
+
+.boton-eliminar {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.boton-eliminar:hover {
+  background-color: #c0392b;
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.paginacion button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: white;
+  color: #2c3e50;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 40px;
+}
+
+.paginacion button:hover {
+  background-color: #ecf0f1;
+}
+
+.paginacion button.pagina-activa {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}

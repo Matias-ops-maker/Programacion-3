@@ -1,0 +1,223 @@
+.menu_contenedor {
+  display: flex;
+  justify-content: center;
+  gap:1rem;
+  margin: 2rem 0;
+}
+.menu_button {
+  background-color: #2980b9;
+  color:#fff;
+  font-weight: 700;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin:1rem;
+  transition: background-color 0.3s ease;
+}
+.menu_button:hover {
+  background-color: #1c5980;
+}
+.menu_categorias-container {
+  position: relative;
+}
+
+.menu_categorias-dropdown {
+  position: fixed;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 8px;
+  z-index: 1000;
+}
+.menu_categorias-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+}
+.menu_categorias-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.menu_categorias-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 250px; 
+  overflow-y: auto;
+}
+
+.menu_categorias-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.menu_categorias-buttons {
+  display: flex;
+  gap:8px;
+}
+.menu_categorias-buttons button {
+  padding: 6px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.menu_categorias-button {
+  width: 100%;
+  padding: 10px 0;
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.menu_categorias-button:hover {
+  background-color: #2980b9;
+}
+.form-agregar-producto {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.form-agregar-producto input {
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-agregar-producto input:focus {
+  border-color: #2980b9;
+  outline: none;
+}
+
+.form-agregar-producto button {
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+.menu_categorias-actions {
+  position: relative;
+}
+
+.menu_categorias-actions button {
+  background: #fff;
+  background-color: #fff;
+  color:black;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+}
+
+.menu_categorias-actions button:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-opciones {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 0.5rem 0;
+  z-index: 100;
+  min-width: 140px;
+}
+
+.dropdown-opciones button {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0.6rem 1rem;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-opciones button:hover {
+  background-color: #f4f4f4;
+}
+.menu_input-guardar {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.menu_input-guardar:focus {
+  border-color: #2980b9;
+  outline: none;
+}
+
+.menu_btn {
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  margin-left: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.menu_btn[type="submit"] {
+  background-color: #2980b9;
+  color: white;
+}
+
+.menu_btn[type="submit"]:hover {
+  background-color: #196394;
+}
+
+.menu_btn[type="button"] {
+  background-color: #ccc;
+  color: #333;
+}
+
+.menu_btn[type="button"]:hover {
+  background-color: #a5a5a5;
+}

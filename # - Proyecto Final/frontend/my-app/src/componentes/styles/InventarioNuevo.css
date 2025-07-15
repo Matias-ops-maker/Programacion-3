@@ -1,0 +1,204 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.inventario-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 20px auto;
+}
+
+.inventario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.ventas-titulo {
+  margin: 0;
+  color: #333;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.acciones-superiores {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.acciones-grupo-input-filtro {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.acciones-grupo-input-filtro > input.input-buscador,
+.acciones-grupo-input-filtro > select.select-filtro {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  min-width: 200px;
+}
+
+.boton-agregar {
+  background-color: #2c3e50;
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  font-family: "Montserrat", sans-serif;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 140px;
+  text-align: center;
+}
+
+.boton-agregar:hover {
+  background-color: rgb(32, 93, 133);
+}
+
+.tabla-ventas {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+}
+
+.tabla-ventas th,
+.tabla-ventas td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  white-space: nowrap;
+  user-select: none;
+  font-family: "Inter", sans-serif;
+}
+
+.tabla-ventas th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.tabla-ventas th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.tabla-ventas tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+.tabla-ventas tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+.tabla-ventas th {
+  background-color: #2c3e50;
+  color: white;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+}
+
+.tabla-ventas tbody tr:hover {
+  background-color: #f1f5f8;
+  cursor: default;
+}
+
+.botones-fila {
+  display: flex;
+  gap: 10px;
+}
+
+.boton-editar,
+.boton-eliminar {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+}
+
+.boton-editar {
+  color: #2c3e50;
+}
+
+.boton-editar:hover {
+  background-color: #d6e9ff;
+}
+
+.boton-eliminar {
+  color: #7e3028;
+}
+
+.boton-eliminar:hover {
+  background-color: #f9d6d5;
+}
+
+.paginacion {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.paginacion button {
+  background-color: #3f779c;
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+
+.paginacion button:hover {
+  background-color: #2c5a7a;
+}
+
+.paginacion button.pagina-activa {
+  background-color: #2c3e50;
+}
+
+.paginacion button.pagina-activa:hover {
+  background-color: #1a252f;
+}
+
+/* Estados de stock */
+.estado-ok {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.estado-bajo {
+  color: #c0392b;
+  font-weight: 600;
+}
