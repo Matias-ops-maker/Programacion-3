@@ -14,32 +14,26 @@ const usersRoutes = require('./routes/users');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware de seguridad
 app.use(helmet());
 
-// CORS
 app.use(cors({
   origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   credentials: true
 }));
 
-// Middleware de parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Logging
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('combined'));
 }
 
-// Rutas
 app.use('/api', routes);
 app.use('/api/productos', productosRoutes);
 app.use('/api/categorias', categoriasRoutes);
 app.use('/api/ventas', ventasRoutes);
 app.use('/api/users', usersRoutes);
 
-// Health check en la raíz
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'OK',
@@ -48,7 +42,6 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -57,19 +50,15 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Manejo de rutas no encontradas
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-// Inicializar servidor
 async function startServer() {
   try {
-    // Probar conexión a la base de datos
     await sequelize.authenticate();
     console.log('✅ Database connection established successfully.');
     
-    // En desarrollo, sincronizar modelos
     if (process.env.NODE_ENV === 'development') {
       await sequelize.sync({ alter: false });
       console.log('✅ Database synchronized');
@@ -82,7 +71,6 @@ async function startServer() {
     });
   } catch (error) {
     console.error('❌ Unable to start server:', error);
-    // Continuar sin base de datos para desarrollo
     app.listen(PORT, () => {
       console.log(`⚠️  Server started without database on port ${PORT}`);
     });
@@ -91,7 +79,6 @@ async function startServer() {
 
 startServer();
 
-// Manejo de cierre graceful
 process.on('SIGTERM', async () => {
   console.log('SIGTERM received, shutting down gracefully');
   try {

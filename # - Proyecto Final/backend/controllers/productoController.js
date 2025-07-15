@@ -1,7 +1,6 @@
 
 const { Producto, Categoria, Venta, sequelize } = require('../models');
 
-// Lo pide el front de fran y nico
 exports.getAll = async (req, res) => {
     const productos = await Producto.findAll({ include: 'categoria' });
     const productosFront = productos.map(p => ({
@@ -16,7 +15,6 @@ exports.getAll = async (req, res) => {
     res.json({ productos: productosFront });
 };
 
-// Lo pide el front de fran y nico
 exports.getById = async (req, res) => {
     const producto = await Producto.findByPk(req.params.id, { include: 'categoria' });
     if (!producto) return res.status(404).json({ error: 'Producto no encontrado' });
@@ -48,9 +46,6 @@ exports.remove = async (req, res) => {
     res.sendStatus(204);
 };
 
-// Endpoints de fran y nico para mostrar en el frontend
-
-// Ultimos 5 productos agregados
 exports.getUltimos = async (req, res) => {
     const productos = await Producto.findAll({
         order: [['fecha_de_ingreso', 'DESC']],
@@ -69,7 +64,6 @@ exports.getUltimos = async (req, res) => {
     res.json({ productos: productosFront });
 };
 
-// Los 5 productos mas vendidos
 exports.getMasVendidos = async (req, res) => {
     const productos = await Venta.findAll({
         attributes: [
@@ -94,7 +88,6 @@ exports.getMasVendidos = async (req, res) => {
     res.json({ productos: productosFront });
 };
 
-// Ultimos 5 productos por stock
 exports.getSinStock = async (req, res) => {
     const productos = await Producto.findAll({
         where: { stock: 0 },

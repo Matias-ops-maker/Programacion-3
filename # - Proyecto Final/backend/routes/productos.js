@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const productoController = require('../controllers/productoController');
 
-// Endpoints de fran y nico para mostrar en el frontend
 router.get('/ultimos', productoController.getUltimos);
 router.get('/mas-vendidos', productoController.getMasVendidos);
 router.get('/sin-stock', productoController.getSinStock);
@@ -13,6 +12,5 @@ router.post('/', productoController.create);
 router.get('/:id', productoController.getById);
 router.put('/:id', productoController.update);
 router.delete('/:id', productoController.remove);
-
 
 module.exports = router;

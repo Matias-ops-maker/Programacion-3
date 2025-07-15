@@ -1,28 +1,34 @@
-# backend/Dockerfile.dev
-FROM node:18-alpine
+FROM node:20-alpine
 
-# Instalar herramientas para desarrollo
-RUN apk add --no-cache git
+RUN apk add --no-cache \
+    git \
+    curl \
+    bash
+
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S backend -u 1001
 
 WORKDIR /app
 
-# Variables de entorno para desarrollo
 ENV NODE_ENV=development
+ENV NPM_CONFIG_LOGLEVEL=warn
+ENV NPM_CONFIG_COLOR=false
 
-# Copiar package.json primero
 COPY package*.json ./
 
-# Instalar dependencias incluyendo devDependencies
-RUN npm install
+RUN npm ci --only=development && \
+    npm cache clean --force
 
-# Instalar nodemon globalmente si no está en package.json
 RUN npm install -g nodemon
 
-# Copiar código fuente
-COPY . .
+RUN chown -R backend:nodejs /app
+USER backend
 
-# Exponer puertos (app y debugging)
+COPY --chown=backend:nodejs . .
+
 EXPOSE 3001 9229
 
-# Comando con nodemon para hot reload
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3001/health || exit 1
+
 CMD ["npm", "run", "dev"]

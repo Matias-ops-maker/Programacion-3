@@ -17,7 +17,6 @@ const FormularioLogin = () => {
   const { login, error, loading, clearError, isAuthenticated } = useAuth();
   const [submitError, setSubmitError] = useState("");
 
-  // Redirigir si ya está autenticado
   useEffect(() => {
     if (isAuthenticated) {
       const from = location.state?.from?.pathname || "/principal";
@@ -25,7 +24,6 @@ const FormularioLogin = () => {
     }
   }, [isAuthenticated, navigate, location]);
 
-  // Limpiar errores cuando el componente se monta
   useEffect(() => {
     clearError();
     setSubmitError("");

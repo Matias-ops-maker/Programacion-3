@@ -1,7 +1,6 @@
 
 const { Categoria } = require('../models');
 
-// Lo pide el front de fran y nico
 exports.getAll = async (req, res) => {
     const categorias = await Categoria.findAll();
     const categoriasFront = categorias.map(c => ({
@@ -13,7 +12,6 @@ exports.getAll = async (req, res) => {
     res.json({ categorias: categoriasFront });
 };
 
-// Lo pide el front de fran y nico
 exports.getById = async (req, res) => {
     const c = await Categoria.findByPk(req.params.id);
     if (!c) return res.status(404).json({ error: 'Categoría no encontrada' });
@@ -42,8 +40,6 @@ exports.remove = async (req, res) => {
     res.sendStatus(204);
 };
 
-// Endpoints de fran y nico para mostrar en el frontend
-// Las 5 categorias mas vendidas
 exports.getMasVendidas = async (req, res) => {
     const categorias = await Venta.findAll({
         attributes: [

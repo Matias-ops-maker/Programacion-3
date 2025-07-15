@@ -24,8 +24,6 @@ exports.create = async (req, res) => {
     res.status(201).json(venta);
 };
 
-// Endpoints de fran y nico para mostrar en el frontend
-// 5 ultimas ventas
 exports.getUltimas = async (req, res) => {
     const ventas = await Venta.findAll({
         order: [['fecha', 'DESC']],
