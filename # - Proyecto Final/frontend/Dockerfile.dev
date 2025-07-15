@@ -1,0 +1,36 @@
+FROM node:20-alpine
+
+RUN apk add --no-cache \
+    git \
+    curl \
+    bash
+
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S frontend -u 1001
+
+WORKDIR /app
+
+ENV NODE_ENV=development
+ENV NPM_CONFIG_LOGLEVEL=warn
+ENV NPM_CONFIG_COLOR=false
+
+ENV CHOKIDAR_USEPOLLING=true
+ENV WATCHPACK_POLLING=true
+ENV FAST_REFRESH=true
+
+COPY package*.json ./
+
+RUN npm ci && \
+    npm cache clean --force
+
+RUN chown -R frontend:nodejs /app
+USER frontend
+
+COPY --chown=frontend:nodejs . .
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:3000 || exit 1
+
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]

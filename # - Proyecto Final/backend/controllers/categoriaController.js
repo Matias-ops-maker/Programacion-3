@@ -1,6 +1,6 @@
-const { Categoria } = require('../models');
+const { Categoria, Venta } = require('../models');
+const sequelize = require('sequelize');
 
-// Lo pide el front de fran y nico
 exports.getAll = async (req, res) => {
     const categorias = await Categoria.findAll();
     const categoriasFront = categorias.map(c => ({
@@ -12,7 +12,6 @@ exports.getAll = async (req, res) => {
     res.json({ categorias: categoriasFront });
 };
 
-// Lo pide el front de fran y nico
 exports.getById = async (req, res) => {
     const c = await Categoria.findByPk(req.params.id);
     if (!c) return res.status(404).json({ error: 'Categoría no encontrada' });

@@ -1,11 +1,9 @@
-# docker-compose.yml con hot reload optimizado
-version: '3.8'
+version: "3.8"
 
 services:
-  # Base de datos PostgreSQL
   database:
     image: postgres:15-alpine
-    container_name: app_database
+    container_name: proyecto_database
     restart: unless-stopped
     environment:
       POSTGRES_DB: app_database
@@ -15,7 +13,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app_network
     healthcheck:
@@ -23,58 +20,52 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 30s
 
-  # Backend con Express y Sequelize
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
-    container_name: app_backend
+    container_name: proyecto_backend
     restart: unless-stopped
     environment:
-      NODE_ENV: development
-      PORT: 3001
-      DB_HOST: database
-      DB_PORT: 5432
-      DB_NAME: app_database
-      DB_USER: app_user
-      DB_PASSWORD: app_password
-      JWT_SECRET: your_jwt_secret_here
-      CORS_ORIGIN: http://localhost:3000
+      - NODE_ENV=development
+      - PORT=3001
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_NAME=app_database
+      - DB_USER=app_user
+      - DB_PASSWORD=app_password
+      - JWT_SECRET=mi_jwt_secret_super_seguro_2024
+      - CORS_ORIGIN=http://localhost:3000
     ports:
       - "3001:3001"
-      - "9229:9229"  # Puerto para debugging
+      - "9229:9229"
     volumes:
-      - ./backend:/app
       - /app/node_modules
-      - backend_node_modules:/app/node_modules
     depends_on:
       database:
         condition: service_healthy
     networks:
       - app_network
 
-  # Frontend con React y Hot Reload
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    container_name: app_frontend
+      context: ./frontend/my-app
+      dockerfile: ../../frontend/Dockerfile.dev
+    container_name: proyecto_frontend
     restart: unless-stopped
     environment:
+      - NODE_ENV=development
       - REACT_APP_API_URL=http://localhost:3001/api
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
       - FAST_REFRESH=true
-      - WDS_SOCKET_HOST=localhost
-      - WDS_SOCKET_PORT=3000
-      - WDS_SOCKET_PATH=/ws
+      - VITE_API_URL=http://localhost:3001/api
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
       - /app/node_modules
-      - frontend_node_modules:/app/node_modules
     depends_on:
       - backend
     networks:
@@ -82,25 +73,21 @@ services:
     stdin_open: true
     tty: true
 
-  # Nginx como reverse proxy (opcional)
   nginx:
     image: nginx:alpine
-    container_name: app_nginx
+    container_name: proyecto_nginx
     restart: unless-stopped
     ports:
       - "80:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - frontend
       - backend
     networks:
-      - app_network
-
-  # Redis para cache y sesiones (opcional)
   redis:
     image: redis:7-alpine
-    container_name: app_redis
+    container_name: proyecto_redis
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -110,18 +97,14 @@ services:
       - app_network
     command: redis-server --appendonly yes
 
-  # pgAdmin 4 para administración de PostgreSQL
   pgadmin:
-    build:
-      context: ./pgadmin
-      dockerfile: Dockerfile
-    container_name: app_pgadmin
+    image: dpage/pgadmin4:latest
+    container_name: proyecto_pgadmin
     restart: unless-stopped
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_EMAIL: admin@proyecto.com
       PGADMIN_DEFAULT_PASSWORD: admin123
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+      PGADMIN_CONFIG_SERVER_MODE: "False"
     ports:
       - "5050:80"
     volumes:
@@ -133,11 +116,13 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
   redis_data:
-  frontend_node_modules:
-  backend_node_modules:
+    driver: local
   pgadmin_data:
+    driver: local
 
 networks:
   app_network:
     driver: bridge
+    name: proyecto_network
